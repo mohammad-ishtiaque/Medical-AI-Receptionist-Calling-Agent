@@ -33,6 +33,7 @@ It handles inbound/outbound calls, answers common questions, does slot-filling a
 
 ## Requirements
 - Python 3.11+
+- Note: `TTS_PROVIDER=coqui` currently needs Python 3.11 because the `TTS` package does not publish Python 3.12 wheels.
 - MongoDB
 - Redis
 - Twilio account + phone number
@@ -49,7 +50,7 @@ It handles inbound/outbound calls, answers common questions, does slot-filling a
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\activate
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 Copy-Item .env.example .env
 ```
 

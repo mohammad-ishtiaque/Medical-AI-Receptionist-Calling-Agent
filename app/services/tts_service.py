@@ -9,6 +9,7 @@ import threading
 import time
 import uuid
 import io
+import sys
 from typing import Optional
 
 import httpx
@@ -204,7 +205,13 @@ class TTSService:
         try:
             from TTS.api import TTS
         except Exception as exc:
-            raise RuntimeError(f"Coqui TTS import failed: {exc}") from exc
+            hint = ""
+            if sys.version_info >= (3, 12):
+                hint = (
+                    " Coqui TTS is not available for Python 3.12+ in this project setup; "
+                    "use Python 3.11 for TTS_PROVIDER=coqui or switch to edge, gtts, openai, or piper."
+                )
+            raise RuntimeError(f"Coqui TTS import failed: {exc}.{hint}") from exc
 
         with _COQUI_LOCK:
             if _COQUI_MODEL is None:
